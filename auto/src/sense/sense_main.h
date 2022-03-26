@@ -11,6 +11,7 @@
 
 #include "icomponent.h"
 #include <memory>
+#include <vector>
 
 class CSensorProxyHandler;
 
@@ -28,6 +29,8 @@ public:
     bool start() override;
     bool process() override;
     bool stop() override;
+
+    bool getData();
 
 private:
     std::shared_ptr<CSensorProxyHandler> m_sensor_proxy_handler;

@@ -27,7 +27,6 @@ bool CFactory::init()
     m_decide->init();
     m_control->init();
 
-
     return true;
 }
 
@@ -42,15 +41,7 @@ bool CFactory::start()
     return true;
 }
 
-bool CFactory::process()
-{
-    m_sense->process();
-    m_sit->process();
-    m_decide->process();
-    m_control->process();
 
-    return true;
-}
 
 bool CFactory::stop()
 {
