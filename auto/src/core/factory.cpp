@@ -17,39 +17,48 @@
 
 bool CFactory::init()
 {
-    m_sense = std::make_shared<CSenseMain>();
-    m_sit = std::make_shared<CSitMain>();
-    m_decide = std::make_shared<CDecideMain>();
-    m_control = std::make_shared<CControlMain>();
+    addModule("sensor", std::make_shared<CSenseMain>());
+    addModule("sit", std::make_shared<CSitMain>());
+    addModule("decide", std::make_shared<CDecideMain>());
+    addModule("control", std::make_shared<CControlMain>());
 
-    m_sense->init();
-    m_sit->init();
-    m_decide->init();
-    m_control->init();
+    for(const auto& it: m_module_list) {
+        it.module->init();
+    }
 
     return true;
 }
 
 bool CFactory::start()
 {
-    ///\ todo automate
-    m_sense->start();
-    m_sit->start();
-    m_decide->start();
-    m_control->start();
-
+    for(const auto& it: m_module_list) {
+        it.module->start();
+    }
     return true;
 }
-
-
 
 bool CFactory::stop()
 {
     ///\ todo automate
-    m_sense->stop();
-    m_sit->stop();
-    m_decide->stop();
-    m_control->stop();
+    for(const auto& it: m_module_list) {
+        it.module->stop();
+    }
 
     return true;
+}
+
+void CFactory::addModule(const std::string module_name, const std::shared_ptr<IComponent> p_module)
+{
+    SModuleEntry container{module_name, p_module};
+    m_module_list.emplace_back(std::move(container));
+}
+
+std::shared_ptr<IComponent> CFactory::getModule(const std::string module_name)
+{
+    for(const auto& it: m_module_list) {
+        if(module_name == it.module_name) {
+            return it.module;
+        }
+    }
+    return nullptr;
 }

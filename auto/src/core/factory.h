@@ -10,11 +10,21 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+
+#include "icomponent.h"
 
 class CSenseMain;
 class CSitMain;
 class CDecideMain;
 class CControlMain;
+
+struct SModuleEntry
+{
+    std::string module_name;
+    std::shared_ptr<IComponent> module;
+};
+
 
 class CFactory
 {
@@ -30,11 +40,10 @@ public:
     bool start();
     bool stop();
 
-    ///\ todo temporary fix
-    std::shared_ptr<CSenseMain> m_sense;
-    std::shared_ptr<CSitMain> m_sit;
-    std::shared_ptr<CDecideMain> m_decide;
-    std::shared_ptr<CControlMain> m_control;
+    void addModule(const std::string module_name, const std::shared_ptr<IComponent> p_module);
+    std::shared_ptr<IComponent> getModule(const std::string module_name);
 
 private:
+    std::vector<SModuleEntry> m_module_list;
+
 };

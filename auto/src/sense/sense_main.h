@@ -18,12 +18,12 @@ class CSensorProxyHandler;
 class CSenseMain : public IComponent
 {
 public:
-    CSenseMain()=default;                                // Constructor
+    CSenseMain()=default;                                 // Constructor
     CSenseMain(const CSenseMain&) = delete;               // Copy constructor
     CSenseMain(CSenseMain&&) = delete;                    // Move constructor
     CSenseMain& operator=(const CSenseMain&) = delete;    // Copy assignment operator
     CSenseMain& operator=(CSenseMain&&) = delete;         // Move assignment operator
-    ~CSenseMain()=default;                               // Destructor
+    ~CSenseMain()=default;                                // Destructor
 
     bool init() override;
     bool start() override;

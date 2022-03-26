@@ -10,11 +10,6 @@
 #include "core.h"
 #include "factory.h"
 
-#include "sense_main.h"
-#include "sit_main.h"
-
-
-
 bool CAutoCore::start()
 {
     m_factory = std::make_shared<CFactory>();
@@ -27,10 +22,10 @@ bool CAutoCore::start()
 
 bool CAutoCore::process()
 {
-
-    m_factory->m_sense->process();
-    m_factory->m_sit->process();
-
+    m_factory->getModule("sensor")->process();
+    m_factory->getModule("sit")->process();
+    m_factory->getModule("decide")->process();
+    m_factory->getModule("control")->process();
 
     return true;
 }
