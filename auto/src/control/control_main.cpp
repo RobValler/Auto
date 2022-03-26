@@ -1,0 +1,29 @@
+/*****************************************************************
+ * Copyright (C) 2017-2022 Robert Valler - All rights reserved.
+ *
+ * This file is part of the project: Comms
+ *
+ * This project can not be copied and/or distributed
+ * without the express permission of the copyright holder
+ *****************************************************************/
+
+
+#include "control_main.h"
+
+bool CControlMain::init()
+{
+
+    return true;
+}
+
+bool CControlMain::start()
+{
+
+    return true;
+}
+
+bool CControlMain::stop()
+{
+
+    return true;
+}
