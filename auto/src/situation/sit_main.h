@@ -9,18 +9,22 @@
 
 #pragma once
 
-class CSitMain
+#include "icomponent.h"
+
+class CSitMain : public IComponent
 {
 public:
-    CSitMain()=default;                                // Constructor
+    CSitMain()=default;                               // Constructor
     CSitMain(const CSitMain&) = delete;               // Copy constructor
     CSitMain(CSitMain&&) = delete;                    // Move constructor
     CSitMain& operator=(const CSitMain&) = delete;    // Copy assignment operator
     CSitMain& operator=(CSitMain&&) = delete;         // Move assignment operator
-    ~CSitMain()=default;                               // Destructor
+    ~CSitMain()=default;                              // Destructor
 
-    bool start();
-    bool stop();
+    bool init() override;
+    bool start() override;
+    bool process() override;
+    bool stop() override;
 
 private:
 

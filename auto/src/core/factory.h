@@ -9,13 +9,16 @@
 
 #pragma once
 
+#include "icomponent.h"
+
 #include <memory>
+
 class CSenseMain;
 class CSitMain;
 class CDecideMain;
 class CControlMain;
 
-class CFactory
+class CFactory : public IComponent
 {
 public:
     CFactory()=default;                               // Constructor
@@ -25,9 +28,10 @@ public:
     CFactory& operator=(CFactory&&) = delete;         // Move assignment operator
     ~CFactory()=default;                              // Destructor
 
-    bool init();
-    bool start();
-    bool stop();
+    bool init() override;
+    bool start() override;
+    bool process() override;
+    bool stop() override;
 
 private:
     std::shared_ptr<CSenseMain> m_sense;

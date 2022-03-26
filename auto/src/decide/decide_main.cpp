@@ -21,6 +21,12 @@ bool CDecideMain::start()
     return true;
 }
 
+bool CDecideMain::process()
+{
+
+    return true;
+}
+
 bool CDecideMain::stop()
 {
 

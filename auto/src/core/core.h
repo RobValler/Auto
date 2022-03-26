@@ -24,6 +24,7 @@ public:
     ~CAutoCore()=default;                               // Destructor
 
     bool start();
+    bool process();
     bool stop();
 
 private:

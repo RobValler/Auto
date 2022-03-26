@@ -20,6 +20,12 @@ bool CAutoCore::start()
     return true;
 }
 
+bool CAutoCore::process()
+{
+    m_factory->process();
+    return true;
+}
+
 bool CAutoCore::stop()
 {
     m_factory->stop();

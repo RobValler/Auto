@@ -14,5 +14,6 @@ public:
     virtual ~IComponent(){};
     virtual bool init()=0;
     virtual bool start()=0;
+    virtual bool process()=0;
     virtual bool stop()=0;
 };

@@ -22,6 +22,10 @@ bool CFactory::init()
     m_decide = std::make_shared<CDecideMain>();
     m_control = std::make_shared<CControlMain>();
 
+    m_sense->init();
+    m_sit->init();
+    m_decide->init();
+    m_control->init();
 
 
     return true;
@@ -34,6 +38,16 @@ bool CFactory::start()
     m_sit->start();
     m_decide->start();
     m_control->start();
+
+    return true;
+}
+
+bool CFactory::process()
+{
+    m_sense->process();
+    m_sit->process();
+    m_decide->process();
+    m_control->process();
 
     return true;
 }

@@ -23,6 +23,7 @@ public:
 
     bool init() override;
     bool start() override;
+    bool process() override;
     bool stop() override;
 
 private:

@@ -9,7 +9,12 @@
 
 #pragma once
 
-class CSenseMain
+#include "icomponent.h"
+#include <memory>
+
+class CSensorProxyHandler;
+
+class CSenseMain : public IComponent
 {
 public:
     CSenseMain()=default;                                // Constructor
@@ -19,10 +24,12 @@ public:
     CSenseMain& operator=(CSenseMain&&) = delete;         // Move assignment operator
     ~CSenseMain()=default;                               // Destructor
 
-    bool start();
-    bool stop();
+    bool init() override;
+    bool start() override;
+    bool process() override;
+    bool stop() override;
 
 private:
-
+    std::shared_ptr<CSensorProxyHandler> m_sensor_proxy_handler;
 
 };

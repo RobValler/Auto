@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
 
     core.start();
 
+    while(true)
+    {
+        core.process();
+    }
 
     core.stop();
 

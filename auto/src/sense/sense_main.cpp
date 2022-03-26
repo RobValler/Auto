@@ -8,12 +8,30 @@
  *****************************************************************/
 
 #include "sense_main.h"
+#include "sensor_proxy_handler.h"
 
 #include <iostream>
+
+bool CSenseMain::init()
+{
+    m_sensor_proxy_handler = std::make_shared<CSensorProxyHandler>();
+
+    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("sonar 1"));
+    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("sonar 2"));
+
+    return true;
+}
 
 bool CSenseMain::start()
 {
     std::cout << "Sense component started" << std::endl;
+
+    return true;
+}
+
+bool CSenseMain::process()
+{
+    m_sensor_proxy_handler->readSensors();
 
     return true;
 }

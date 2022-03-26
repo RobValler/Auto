@@ -9,7 +9,19 @@
 
 #include "sit_main.h"
 
+bool CSitMain::init()
+{
+
+    return true;
+}
+
 bool CSitMain::start()
+{
+
+    return true;
+}
+
+bool CSitMain::process()
 {
 
     return true;

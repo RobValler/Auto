@@ -22,6 +22,13 @@ bool CControlMain::start()
     return true;
 }
 
+bool CControlMain::process()
+{
+
+    return true;
+}
+
+
 bool CControlMain::stop()
 {
 
