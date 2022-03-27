@@ -14,7 +14,6 @@
 #include "decide_main.h"
 #include "control_main.h"
 
-
 bool CFactory::init()
 {
     addModule("sensor", std::make_shared<CSenseMain>());
@@ -22,41 +21,52 @@ bool CFactory::init()
     addModule("decide", std::make_shared<CDecideMain>());
     addModule("control", std::make_shared<CControlMain>());
 
-    for(const auto& it: m_module_list) {
-        it.module->init();
+    bool result = true;
+    for(auto& it: m_module_list) {
+        if(!it.module->init())
+            result = false;
+        else
+            it.status = E_INIT;
     }
-
-    return true;
+    return result;
 }
 
 bool CFactory::start()
 {
-    for(const auto& it: m_module_list) {
-        it.module->start();
+    bool result = true;
+    for(auto& it: m_module_list) {
+        if(!it.module->start())
+            result = false;
+        else
+            it.status = E_STARTED;
     }
-    return true;
+    return result;
 }
 
 bool CFactory::stop()
 {
-    ///\ todo automate
-    for(const auto& it: m_module_list) {
-        it.module->stop();
+    bool result = true;
+    for(auto& it: m_module_list) {
+        if(!it.module->stop())
+            result = false;
+        else
+            it.status = E_STOP;
     }
-
-    return true;
+    return result;
 }
 
 void CFactory::addModule(const std::string module_name, const std::shared_ptr<IComponent> p_module)
 {
-    SModuleEntry container{module_name, p_module};
+    SModuleEntry container{module_name, E_NONE, p_module};
     m_module_list.emplace_back(std::move(container));
 }
 
 std::shared_ptr<IComponent> CFactory::getModule(const std::string module_name)
 {
     for(const auto& it: m_module_list) {
-        if(module_name == it.module_name) {
+        if ((module_name == it.module_name) &&
+            (E_STARTED == it.status))
+        {
             return it.module;
         }
     }

@@ -25,7 +25,7 @@ bool CSitMain::start()
 
 bool CSitMain::process()
 {
-    std::cout << "SIT process" << std::endl;
+
     return true;
 }
 

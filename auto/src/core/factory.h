@@ -14,17 +14,20 @@
 
 #include "icomponent.h"
 
-class CSenseMain;
-class CSitMain;
-class CDecideMain;
-class CControlMain;
+enum EComponentStatus : unsigned int
+{
+    E_NONE = 0,
+    E_INIT,
+    E_STARTED,
+    E_STOP
+};
 
 struct SModuleEntry
 {
     std::string module_name;
+    EComponentStatus status{E_NONE};
     std::shared_ptr<IComponent> module;
 };
-
 
 class CFactory
 {
