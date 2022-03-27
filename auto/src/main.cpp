@@ -15,7 +15,7 @@
 #include "Logger.h"
 
 namespace  {
-static std::atomic<bool> l_shutdowndown;
+    static std::atomic<bool> l_shutdowndown;
 }
 
 void my_handler(int)

@@ -30,25 +30,19 @@ public:
         t_main.join();
     }
 
-    int read() {
-        return m_distance;
-    }
-
+    int read() { return m_distance; }
     std::string getName() { return m_name; }
 
 private:
     void process() {
-
         while(true) {
             if(m_distance > 0)
-                m_distance--;
-            else
-                m_distance = 1000;
+                m_distance = m_distance - 0.1f;
         }
     }
 
     std::thread t_main;
-    int m_distance{1000};
+    float m_distance{1000.0f};
     std::string m_name;
 
 };

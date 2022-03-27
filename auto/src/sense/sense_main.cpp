@@ -38,6 +38,16 @@ bool CSenseMain::process()
 
 bool CSenseMain::stop()
 {
+    return true;
+}
+
+bool CSenseMain::getData(SSenseData& data)
+{
+    // hard coded
+    SSenseDataStruct d;
+    d.name = "test";
+    d.distance = 100;
+    data.data.emplace_back(d);
 
     return true;
 }

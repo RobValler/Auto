@@ -42,10 +42,8 @@ public:
     bool init();
     bool start();
     bool stop();
-
     void addModule(const std::string module_name, const std::shared_ptr<IComponent> p_module);
     void removeModule(const std::string module_name);
-
     std::shared_ptr<IComponent> getModule(const std::string module_name);
 
 private:

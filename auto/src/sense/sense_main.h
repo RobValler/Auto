@@ -13,6 +13,18 @@
 #include <memory>
 #include <vector>
 
+struct SSenseDataStruct
+{
+    std::string name;
+    // type?
+    float distance; // type of data?
+};
+
+struct SSenseData
+{
+    std::vector<SSenseDataStruct> data;
+};
+
 class CSensorProxyHandler;
 
 class CSenseMain : public IComponent
@@ -30,7 +42,7 @@ public:
     bool process() override;
     bool stop() override;
 
-    bool getData();
+    bool getData(SSenseData& data);
 
 private:
     std::shared_ptr<CSensorProxyHandler> m_sensor_proxy_handler;

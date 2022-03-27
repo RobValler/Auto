@@ -10,9 +10,17 @@
 #include "state_main.h"
 #include "factory.h"
 
+#include "sense_main.h"
+
 IStateClassBase::StateReturnCode CStateMain::StateRun()
 {
     m_factory->getModule("sensor")->process();
+
+    SSenseData data;
+    std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(data);
+
+
+
     m_factory->getModule("sit")->process();
     m_factory->getModule("decide")->process();
     m_factory->getModule("control")->process();
