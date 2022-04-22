@@ -15,7 +15,8 @@
 
 struct SSenseDataStruct
 {
-    std::string name;
+    int sensor_number;
+    std::string sensor_name;
     // type?
     float distance; // type of data?
 };
@@ -46,5 +47,6 @@ public:
 
 private:
     std::shared_ptr<CSensorProxyHandler> m_sensor_proxy_handler;
+    int data_distance{1000};
 
 };

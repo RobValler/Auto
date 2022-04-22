@@ -34,11 +34,12 @@ public:
         return true;
     }
 
-    bool readSensors() {
+    std::vector<float> readSensors() {
+        std::vector<float> info;
         for(const auto& it: m_sensor_proxy_list) {
             std::cout << it->getName() << " = " << it->read() << std::endl;
         }
-        return true;
+        return info;
     }
 
 private:

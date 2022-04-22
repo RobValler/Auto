@@ -31,7 +31,7 @@ bool CSenseMain::start()
 
 bool CSenseMain::process()
 {
-    m_sensor_proxy_handler->readSensors();
+    // not needed so far
 
     return true;
 }
@@ -43,10 +43,14 @@ bool CSenseMain::stop()
 
 bool CSenseMain::getData(SSenseData& data)
 {
+    ///\ todo make this so all (virtual) sensor data is returned
+    // m_sensor_proxy_handler->readSensors();
+
     // hard coded
     SSenseDataStruct d;
-    d.name = "test";
-    d.distance = 100;
+    d.sensor_number =1;
+    d.sensor_name = "test";
+    d.distance = data_distance--;
     data.data.emplace_back(d);
 
     return true;
