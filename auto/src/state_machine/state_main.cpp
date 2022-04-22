@@ -13,26 +13,31 @@
 #include "Logger.h"
 
 #include "sense_main.h"
+#include "sensor_proxy_handler.h"
+
 
 IStateClassBase::StateReturnCode CStateMain::StateRun()
 {
-    SSenseData data;
+    SAllSensorData data;
     bool remain_in_state = false;
 
     ///\todo update
     m_factory->getModule("sensor")->process();    
     std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(data);
-    CLOG(LOGLEV_RUN, "Sensor (", data.data.at(0).sensor_name, ") distance is ", data.data.at(0).distance );
 
-    //check for zero distance
-    for(const auto& it : data.data) {
-        if(it.distance > 0)
+    for(const auto& it: data.data)
+    {
+        CLOG(LOGLEV_RUN, "Sensor (", it.sensor_name, ") distance is ", it.range_sensor_distance );
+
+        //check for zero distance
+        if(it.range_sensor_distance > 0)
             remain_in_state = true;
     }
 
     if(!remain_in_state)
         return StateCodeRunExitOK;
 
+    ///\ todo separate state classes
     m_factory->getModule("sit")->process();
     m_factory->getModule("decide")->process();
     m_factory->getModule("control")->process();

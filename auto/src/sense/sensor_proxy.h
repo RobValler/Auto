@@ -15,6 +15,14 @@
 #include <atomic>
 #include <chrono>
 
+struct SSensorProxyData
+{
+    int sensor_ID;
+    std::string sensor_name;
+    // type?
+    float range_sensor_distance; // type of data?
+};
+
 class CSensorProxy
 {
 public:
@@ -33,7 +41,13 @@ public:
         t_main.join();
     }
 
-    int read() { return m_distance; }
+    void read(SSensorProxyData& data)
+    {
+        data.sensor_ID = m_ID;
+        data.sensor_name = m_name;
+        data.range_sensor_distance = m_distance;
+    }
+
     std::string getName() { return m_name; }
     void stop() { m_shutdown_request = true; }
 
@@ -43,13 +57,13 @@ private:
             if(m_distance > 0)
                 m_distance = m_distance - 0.1f;
 
-            std::this_thread::sleep_for( std::chrono::seconds(1) );
+            std::this_thread::sleep_for( std::chrono::microseconds(1000) );
         }
     }
 
     std::atomic<bool> m_shutdown_request{false};
     std::thread t_main;
-    float m_distance{1000.0f};
+    float m_distance{100.0f};
     std::string m_name;
-
+    int m_ID;
 };

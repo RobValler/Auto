@@ -41,17 +41,8 @@ bool CSenseMain::stop()
     return true;
 }
 
-bool CSenseMain::getData(SSenseData& data)
+bool CSenseMain::getData(SAllSensorData& data)
 {
-    ///\ todo make this so all (virtual) sensor data is returned
-    // m_sensor_proxy_handler->readSensors();
-
-    // hard coded
-    SSenseDataStruct d;
-    d.sensor_number =1;
-    d.sensor_name = "test";
-    d.distance = data_distance--;
-    data.data.emplace_back(d);
-
+    m_sensor_proxy_handler->readSensors(data);
     return true;
 }

@@ -14,6 +14,11 @@
 #include <memory>
 #include <vector>
 
+struct SAllSensorData
+{
+    std::vector<SSensorProxyData> data;
+};
+
 class CSensorProxyHandler
 {
 public:
@@ -34,12 +39,14 @@ public:
         return true;
     }
 
-    std::vector<float> readSensors() {
+    void readSensors(SAllSensorData& allSensorData) {
         std::vector<float> info;
-        for(const auto& it: m_sensor_proxy_list) {
-            std::cout << it->getName() << " = " << it->read() << std::endl;
+        for(const auto& it: m_sensor_proxy_list)
+        {
+            SSensorProxyData p_sensor;
+            it->read(p_sensor);
+            allSensorData.data.emplace_back(std::move(p_sensor));
         }
-        return info;
     }
 
 private:
