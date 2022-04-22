@@ -9,7 +9,7 @@
 
 #include "factory.h"
 
-#include "icomponent.h"
+#include "IComponent.h"
 
 #include "sense_main.h"
 #include "sit_main.h"

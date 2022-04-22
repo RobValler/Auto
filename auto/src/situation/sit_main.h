@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "icomponent.h"
+#include "IComponent.h"
 
 class CSitMain : public IComponent
 {
