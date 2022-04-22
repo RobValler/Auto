@@ -16,7 +16,6 @@ include_directories(${CMAKE_SOURCE_DIR}/../DevFramework/Logger)
 
 #internal
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/common)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/core)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/state_machine)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/control)
