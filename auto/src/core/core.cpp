@@ -16,7 +16,8 @@ bool CAutoCore::start()
     m_factory = std::make_shared<CFactory>();
     m_state_machine = std::make_shared<CStateMachine>();
 
-    m_factory->init();
+    m_factory->setUp(); // add the components
+    m_factory->init();  // initialise the added components
     m_state_machine->init(m_factory);
     m_state_machine->start();
 

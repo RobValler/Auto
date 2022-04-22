@@ -11,6 +11,7 @@ project( auto_main )
 #INCLUDES
 #external
 include_directories(${CMAKE_SOURCE_DIR}/../DevFramework/StateMachine)
+include_directories(${CMAKE_SOURCE_DIR}/../DevFramework/Factory)
 include_directories(${CMAKE_SOURCE_DIR}/../DevFramework/Logger)
 
 #internal
@@ -28,11 +29,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/situation)
 file(GLOB_RECURSE SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
     ${CMAKE_SOURCE_DIR}/../DevFramework/StateMachine/*.cpp
+    ${CMAKE_SOURCE_DIR}/../DevFramework/Factory/*.cpp
     )
 
 file(GLOB_RECURSE HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.h
     ${CMAKE_SOURCE_DIR}/../DevFramework/StateMachine/*.h
+    ${CMAKE_SOURCE_DIR}/../DevFramework/Factory/*.h
     ${CMAKE_SOURCE_DIR}/../DevFramework/Logger/Logger.h
     )
 

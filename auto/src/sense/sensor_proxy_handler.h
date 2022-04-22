@@ -40,10 +40,8 @@ public:
     }
 
     void readSensors(SAllSensorData& allSensorData) {
-        std::vector<float> info;
-        for(const auto& it: m_sensor_proxy_list)
-        {
-            SSensorProxyData p_sensor;
+        SSensorProxyData p_sensor;
+        for(const auto& it: m_sensor_proxy_list) {            
             it->read(p_sensor);
             allSensorData.data.emplace_back(std::move(p_sensor));
         }

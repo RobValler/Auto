@@ -9,27 +9,9 @@
 
 #pragma once
 
-#include <memory>
-#include <vector>
+#include "FactoryBase.h"
 
-#include "icomponent.h"
-
-enum EComponentStatus : unsigned int
-{
-    E_NONE = 0,
-    E_INIT,
-    E_STARTED,
-    E_STOP
-};
-
-struct SModuleEntry
-{
-    std::string module_name;
-    EComponentStatus status{E_NONE};
-    std::shared_ptr<IComponent> module;
-};
-
-class CFactory
+class CFactory : public CFactoryBase
 {
 public:
     CFactory()=default;                               // Constructor
@@ -39,14 +21,5 @@ public:
     CFactory& operator=(CFactory&&) = delete;         // Move assignment operator
     ~CFactory()=default;                              // Destructor
 
-    bool init();
-    bool start();
-    bool stop();
-    void addModule(const std::string module_name, const std::shared_ptr<IComponent> p_module);
-    void removeModule(const std::string module_name);
-    std::shared_ptr<IComponent> getModule(const std::string module_name);
-
-private:
-    std::vector<SModuleEntry> m_module_list;
-
+    void setUp();
 };

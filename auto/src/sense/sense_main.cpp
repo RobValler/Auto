@@ -15,7 +15,6 @@
 bool CSenseMain::init()
 {
     m_sensor_proxy_handler = std::make_shared<CSensorProxyHandler>();
-
     m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar front left"));
     m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar front right"));
 

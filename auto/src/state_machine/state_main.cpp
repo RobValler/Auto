@@ -21,8 +21,9 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     SAllSensorData data;
     bool remain_in_state = false;
 
-    ///\todo update
-    m_factory->getModule("sensor")->process();    
+    // #### SENSOR ###
+
+    // get data
     std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(data);
 
     for(const auto& it: data.data)
