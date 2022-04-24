@@ -1,13 +1,7 @@
-/*****************************************************************
- * Copyright (C) 2017-2022 Robert Valler - All rights reserved.
- *
- * This file is part of the project: Auto
- *
- * This project can not be copied and/or distributed
- * without the express permission of the copyright holder
- *****************************************************************/
+#include <gtest/gtest.h>
 
 #include "core.h"
+#include "sim_main.h"
 
 #include <signal.h>
 #include <atomic>
@@ -24,7 +18,7 @@ void my_handler(int)
     l_shutdowndown = true;
 }
 
-int main(int argc, char *argv[])
+TEST(Tester, Test_Func)
 {
     CAutoCore core;
 
@@ -36,15 +30,18 @@ int main(int argc, char *argv[])
     sigaction(SIGINT, &sigIntHandler, NULL);
     sigaction(SIGTERM, &sigIntHandler, NULL);
 
+    CSimCore::GetInstance();
+    CSimCore::start();
     core.start();
 
     while(!l_shutdowndown)
     {
+        CSimCore::process();
+
         if(!core.process())
             break;
     }
 
     core.stop();
-
-    return 1;
+    CSimCore::stop();
 }

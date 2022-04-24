@@ -15,6 +15,8 @@
 #include <atomic>
 #include <chrono>
 
+#include "sim_main.h"
+
 struct SSensorProxyData
 {
     int sensor_ID;
@@ -45,7 +47,7 @@ public:
     {
         data.sensor_ID = m_ID;
         data.sensor_name = m_name;
-        data.range_sensor_distance = m_distance;
+        data.range_sensor_distance = CSimCore::get_range_sensor_distance();
     }
 
     std::string getName() { return m_name; }
@@ -54,8 +56,6 @@ public:
 private:
     void process() {
         while(!m_shutdown_request) {
-            if(m_distance > 0)
-                m_distance = m_distance - 0.1f;
 
             std::this_thread::sleep_for( std::chrono::microseconds(1000) );
         }
