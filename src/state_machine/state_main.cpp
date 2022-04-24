@@ -18,14 +18,20 @@
 
 IStateClassBase::StateReturnCode CStateMain::StateRun()
 {
+    ///\ todo separate state classes
+
     SAllSensorData data;
     bool remain_in_state = false;
 
     // #### SENSOR ###
-
     // get data
     std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(data);
 
+    // ### INTERPRETATION ###
+    m_factory->getModule("sit")->process();
+
+    // ### DECIDE ###
+    m_factory->getModule("decide")->process();
     for(const auto& it: data.data)
     {
         CLOG(LOGLEV_RUN, "Sensor (", it.sensor_name, ") distance is ", it.range_sensor_distance );
@@ -38,9 +44,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     if(!remain_in_state)
         return StateCodeRunExitOK;
 
-    ///\ todo separate state classes
-    m_factory->getModule("sit")->process();
-    m_factory->getModule("decide")->process();
+    // ### CONTROL ###
     m_factory->getModule("control")->process();
 
     return StateCodeRunOK;
