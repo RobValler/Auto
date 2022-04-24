@@ -26,7 +26,9 @@ public:
     bool process() override;
     bool stop() override;
 
-private:
+    void setData(float distance){ m_distance = distance; }
 
+private:
+    float m_distance;
 
 };

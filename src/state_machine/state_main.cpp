@@ -13,7 +13,11 @@
 #include "Logger.h"
 
 #include "sense_main.h"
+#include "decide_main.h"
 #include "sensor_proxy_handler.h"
+
+#include <vector>
+
 
 
 IStateClassBase::StateReturnCode CStateMain::StateRun()
@@ -31,10 +35,12 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     m_factory->getModule("sit")->process();
 
     // ### DECIDE ###
-    m_factory->getModule("decide")->process();
     for(const auto& it: data.data)
     {
         CLOG(LOGLEV_RUN, "Sensor (", it.sensor_name, ") distance is ", it.range_sensor_distance );
+
+        std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->setData(it.range_sensor_distance);
+        m_factory->getModule("decide")->process();
 
         //check for zero distance
         if(it.range_sensor_distance > 0)
