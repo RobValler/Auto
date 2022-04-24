@@ -51,6 +51,7 @@ bool CStateMachine::process()
 
 bool CStateMachine::stop()
 {
+    SetNextState(EST_STOP);
     return true;
 }
 

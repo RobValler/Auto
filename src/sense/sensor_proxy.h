@@ -47,7 +47,11 @@ public:
     {
         data.sensor_ID = m_ID;
         data.sensor_name = m_name;
+#if ACTUAL_DATA
+
+#else
         data.range_sensor_distance = CSimCore::get_range_sensor_distance();
+#endif
     }
 
     std::string getName() { return m_name; }
