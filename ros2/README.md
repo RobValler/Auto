@@ -1,13 +1,13 @@
-#ROS2 Example
+# ROS2 Example
 
-##Dependencies
-###Install colcon
+## Dependencies
+### Install colcon
 '''
 pip install -U colcon-common-extensions
 '''
 
-##How to create and build a package
-###Command line
+## How to create and build a package
+### Command line
 Run through the following sequence:   
 '''
 source /opt/ros/humble/setup.bash
@@ -20,7 +20,7 @@ source install/setup.bash
 ros2 run <package_name> cpp_code
 '''
 
-###Using QtCreator
+### Using QtCreator
 Run the following commands and then load the CMakeLists.txt file for the   
 relevant ros package.   
 '''
