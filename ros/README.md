@@ -1,5 +1,6 @@
 # ROS2 Example
-
+This uses the "Humble Hawksbull" version of ROS2.   
+   
 ## Dependencies
 ### Install colcon
 ```
