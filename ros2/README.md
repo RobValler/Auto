@@ -7,6 +7,7 @@ pip install -U colcon-common-extensions
 '''
 
 ##How to create and build a package
+###Command line
 Run through the following sequence:   
 '''
 source /opt/ros/humble/setup.bash
@@ -19,4 +20,10 @@ source install/setup.bash
 ros2 run <package_name> cpp_code
 '''
 
-
+###Using QtCreator
+Run the following commands and then load the CMakeLists.txt file for the   
+relevant ros package.   
+'''
+source /opt/ros/humble/setup.bash
+qtcreator <package_name>/CMakeLists.txt
+'''
