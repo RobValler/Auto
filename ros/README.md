@@ -1,13 +1,19 @@
 # ROS2 Example
-This uses the "Humble Hawksbull" version of ROS2.   
-   
-## Dependencies
-### Install colcon
+This uses the "Humble Hawksbill" version of ROS2.   
+
+## Install ROS2 Humble Hawksbill
+
+Install base packages:   
+```
+I pretty much forgot already :(
+```
+
+Install colcon:   
 ```
 pip install -U colcon-common-extensions
 ```
 
-## How to create and build a package
+## How to create and build a ROS package
 ### Command line
 Run through the following sequence:   
 ```
@@ -26,5 +32,5 @@ Run the following commands and then load the CMakeLists.txt file for the
 relevant ros package.   
 ```
 source /opt/ros/humble/setup.bash
-qtcreator <package_name>/CMakeLists.txt
+qtcreator auto_node/CMakeLists.txt sensor_node/CMakeLists.txt
 ```

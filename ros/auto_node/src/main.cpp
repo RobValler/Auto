@@ -16,11 +16,11 @@
 
 int main(int argc, char *argv[])
 {
-        CAutoCore core;
+    CAutoCore core;
 
-  rclcpp::init(argc, argv);
+    rclcpp::init(argc, argv);
 
-   CSimCore::GetInstance();
+    CSimCore::GetInstance();
     CSimCore::start();
     core.start();
 
@@ -29,12 +29,12 @@ int main(int argc, char *argv[])
         CSimCore::process();
 
         if(!core.process())
-            break;
+        break;
     }
 
     core.stop();
     CSimCore::stop();
 
-  rclcpp::shutdown();
-  return 0;
+    rclcpp::shutdown();
+    return 0;
 }

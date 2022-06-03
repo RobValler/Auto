@@ -5,9 +5,13 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+add_definitions(-DROS2_IS_ENABLED)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
 
 #paths
 #external
@@ -57,7 +61,9 @@ file(GLOB_RECURSE HEADERS
 #GENERATE
 add_executable(cpp_code ${SOURCES} ${HEADERS} )
 
-ament_target_dependencies(cpp_code rclcpp)
+ament_target_dependencies(cpp_code
+                            rclcpp
+                            std_msgs)
                         
 install(TARGETS
     cpp_code

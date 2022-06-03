@@ -34,7 +34,7 @@ public:
         return true;
     }
 
-    bool removeSensor(std::shared_ptr<CSensorProxy> p_sensor) {
+    bool removeSensor(std::shared_ptr<CSensorProxy>) {
 
         return true;
     }
