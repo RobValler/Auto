@@ -12,11 +12,14 @@
 #ifdef ROS2_IS_ENABLED
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/node.hpp"
-#include "std_msgs/msg/string.hpp"
+#else
+#include "sim_main.h"
 #endif
 
-#include <chrono>
+#include "Logger.h"
+
 #include <functional>
+#include <string>
 
 CSensorProxy::CSensorProxy(std::string name)                            // Constructor
     : m_name(name)
@@ -34,8 +37,8 @@ void CSensorProxy::read(SSensorProxyData& data)
 {
     data.sensor_ID = m_ID;
     data.sensor_name = m_name;
-#if ACTUAL_DATA
-
+#if ROS2_IS_ENABLED
+    data.range_sensor_distance = m_distance;
 #else
     data.range_sensor_distance = CSimCore::get_range_sensor_distance();
 #endif
@@ -44,23 +47,25 @@ void CSensorProxy::read(SSensorProxyData& data)
 void CSensorProxy::process()
 {
 #ifdef ROS2_IS_ENABLED
-
-    auto node = rclcpp::Node::make_shared("sensor_proxy_1");
+    auto node = rclcpp::Node::make_shared(m_name + "_ros2_sub_node");
 
     std::function<void(const std_msgs::msg::String::SharedPtr msg)> const readFromQFunc =
-            [node](const std_msgs::msg::String::SharedPtr msg)
+            [node, this](const std_msgs::msg::String::SharedPtr msg)
     {
-        RCLCPP_INFO(node->get_logger(), "%s\n", msg->data.c_str());
+         m_distance = std::stof(msg->data);
     };
 
-    auto chatter_sub = node->create_subscription<std_msgs::msg::String>("sensor_data", 1000, readFromQFunc);
+    //auto chatter_sub = node->create_subscription<std_msgs::msg::String>(m_name + "_ros2_channel", 10,  readFromQFunc);
+    auto chatter_sub = node->create_subscription<std_msgs::msg::String>("_ros2_channel", 10,  readFromQFunc);
 
     rclcpp::Rate loop_rate(10);
 
-    while (rclcpp::ok())
+    while(!m_shutdown_request)
     {
-        rclcpp::spin_some(node);
-        loop_rate.sleep();
+        if(rclcpp::ok()) {
+            rclcpp::spin_some(node);
+            loop_rate.sleep();
+        }
     }
 
 #else
@@ -70,5 +75,5 @@ void CSensorProxy::process()
     }
 #endif
 
-
+    CLOG(LOGLEV_RUN, "Sensor proxy/node exited");
 }

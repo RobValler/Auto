@@ -13,7 +13,8 @@
 #include <string>
 #include <atomic>
 
-#include "sim_main.h"
+#include "std_msgs/msg/string.hpp"
+
 
 struct SSensorProxyData
 {

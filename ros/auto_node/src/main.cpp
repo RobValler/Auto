@@ -11,30 +11,27 @@
 #include "rclcpp/rclcpp.hpp"
 
 #include "core.h"
-#include "sim_main.h"
 #include "Logger.h"
+
+#include <chrono>
+
 
 int main(int argc, char *argv[])
 {
     CAutoCore core;
 
     rclcpp::init(argc, argv);
-
-    CSimCore::GetInstance();
-    CSimCore::start();
     core.start();
 
     while(true)
     {
-        CSimCore::process();
-
         if(!core.process())
-        break;
+            break;
+
+        std::this_thread::sleep_for( std::chrono::milliseconds(50) );
     }
 
-    core.stop();
-    CSimCore::stop();
-
     rclcpp::shutdown();
+    core.stop();
     return 0;
 }

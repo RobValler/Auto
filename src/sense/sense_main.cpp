@@ -10,21 +10,21 @@
 #include "sense_main.h"
 #include "sensor_proxy_handler.h"
 
-#include <iostream>
+#include "Logger.h"
+
 
 bool CSenseMain::init()
 {
     m_sensor_proxy_handler = std::make_shared<CSensorProxyHandler>();
-    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar front left"));
-    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar front right"));
+    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar_front_left"));
+    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar_front_right"));
 
     return true;
 }
 
 bool CSenseMain::start()
 {
-    std::cout << "Sense component started" << std::endl;
-
+    CLOG(LOGLEV_RUN, "Sense component started");
     return true;
 }
 

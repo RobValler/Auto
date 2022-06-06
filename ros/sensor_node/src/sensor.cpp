@@ -1,33 +1,43 @@
+/*****************************************************************
+ * Copyright (C) 2017-2022 Robert Valler - All rights reserved.
+ *
+ * This file is part of the project: Auto
+ *
+ * This project can not be copied and/or distributed
+ * without the express permission of the copyright holder
+ *****************************************************************/
 
 #include "rclcpp/rclcpp.hpp"
 
 #include "std_msgs/msg/string.hpp"
 #include "rclcpp/node.hpp"
 
-#include <sstream>
+#include <string>
 
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
 
-    auto node = rclcpp::Node::make_shared("sensor_1");
-    auto chatter_pub = node->create_publisher<std_msgs::msg::String>("sensor_data", 1000);
+    std::string name = "Sonar_front_left";
+    auto node = rclcpp::Node::make_shared(name + "_ros2_pub_node");
+    auto chatter_pub = node->create_publisher<std_msgs::msg::String>("_ros2_channel", 10);
+    //auto chatter_pub = node->create_publisher<std_msgs::msg::String>(name + "_ros2_channel", 10);
+
     rclcpp::Rate loop_rate(10);
 
-    int count = 0;
+    int count = 200;
+    std_msgs::msg::String msg;
 
     while (rclcpp::ok())
     {
-        std_msgs::msg::String msg;
-        std::stringstream ss;
-        ss << "hello world " << count;
-        msg.data = ss.str();
-        RCLCPP_INFO(node->get_logger(), "%s\n", msg.data.c_str());
+        msg.data = std::to_string(count--);
+
         chatter_pub->publish(msg);
 
         rclcpp::spin_some(node);
         loop_rate.sleep();
-        ++count;
     }
+
+    rclcpp::shutdown();
     return 0;
 }

@@ -29,7 +29,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../src/sense)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../src/situation)
 
 #simulation
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../simulation)
+#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../simulation)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -45,14 +45,14 @@ ament_package()
 file(GLOB_RECURSE SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/*.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../simulation/*.cpp
+#    ${CMAKE_CURRENT_SOURCE_DIR}/../../simulation/*.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/StateMachine/*.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/Factory/*.cpp
     )
 
 file(GLOB_RECURSE HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/../../src/*.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../simulation/*.h
+#    ${CMAKE_CURRENT_SOURCE_DIR}/../../simulation/*.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/StateMachine/*.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/Factory/*.h
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/Logger/Logger.h
