@@ -13,8 +13,9 @@
 #include <string>
 #include <atomic>
 
+#ifdef ROS2_IS_ENABLED
 #include "std_msgs/msg/string.hpp"
-
+#endif
 
 struct SSensorProxyData
 {

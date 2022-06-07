@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(slug)
+project(actuator_node)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -8,6 +8,8 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -23,8 +25,10 @@ endif()
 
 ament_package()
 
-add_executable(cpp_code src/slug.cpp)
-ament_target_dependencies(cpp_code rclcpp)
+add_executable(cpp_code src/actuator.cpp)
+ament_target_dependencies(cpp_code
+                            rclcpp
+                            std_msgs)
 
 install(TARGETS
     cpp_code

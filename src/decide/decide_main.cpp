@@ -24,30 +24,33 @@ struct SRuleTableStruct {
     //float actual_data;
     EEventCompare compare;
     float expected_data;
-    void (*func)(void);
+    std::string (*func)(void);
 };
 
-void accelerate()
+std::string accelerate()
 {
     CLOG(LOGLEV_RUN, "Accelerating" );
+    return "Accelerate";
 }
 
-void cruise()
+std::string cruise()
 {
     CLOG(LOGLEV_RUN, "Cruising" );
+    return "Cruise";
 }
 
-void brake()
+std::string brake()
 {
     CLOG(LOGLEV_RUN, "Braking" );
+    return "Brake";
 }
 
 std::vector<SRuleTableStruct> l_rule_table
 {
     // IF                       |   COMPARE           | EXPECTED      | RESULT
     //================================================================================
-    {/*current distance*/           EEC_LESS_THAN,      0.5f,           &brake},
-    {/*current distance*/           EEC_MORE_THAN,      0.5f,           &accelerate}
+    {/*current distance*/           EEC_LESS_THAN,      20.0f,           &brake},
+    {/*current distance*/           EEC_MORE_THAN,      20.0f,           &accelerate}
 
 };
 
@@ -73,14 +76,14 @@ bool CDecideMain::process()
         {
         case EEC_LESS_THAN:
         {
-            if(m_distance < it.compare)
-                it.func();
+            if(m_distance < it.expected_data)
+                m_current_decision = it.func();
             break;
         }
         case EEC_MORE_THAN:
         {
-            if(m_distance > it.compare)
-                it.func();
+            if(m_distance > it.expected_data)
+                m_current_decision = it.func();
             break;
         }
         default:

@@ -14,6 +14,7 @@
 
 #include "sense_main.h"
 #include "decide_main.h"
+#include "control_main.h"
 #include "sensor_proxy_handler.h"
 
 #include <vector>
@@ -35,6 +36,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     m_factory->getModule("sit")->process();
 
     // ### DECIDE ###
+    // run through all the sensor data
     for(const auto& it: data.data)
     {
         CLOG(LOGLEV_RUN, "Sensor (", it.sensor_name, ") distance is ", it.range_sensor_distance );
@@ -47,11 +49,17 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
             remain_in_state = true;
     }
 
+    std::string decide{"null"};
+    std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->getData(decide);
+    CLOG(LOGLEV_RUN, "Decide = ", decide );
+
+
     if(!remain_in_state)
         return StateCodeRunExitOK;
 
     // ### CONTROL ###
-    m_factory->getModule("control")->process();
+    std::static_pointer_cast<CControlMain>(m_factory->getModule("control"))->setCommand(decide);
+//    m_factory->getModule("control")->process();
 
     return StateCodeRunOK;
 }

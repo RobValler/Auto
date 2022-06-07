@@ -11,6 +11,16 @@
 
 #include "IComponent.h"
 
+#include <memory>
+
+enum ESetCommand : unsigned int
+{
+    ESC_FORWARD = 0,
+    ESC_BACKWARD
+};
+
+class CActuatorProxyHandler;
+
 class CControlMain : public IComponent
 {
 public:
@@ -26,7 +36,9 @@ public:
     bool process() override;
     bool stop() override;
 
-private:
+    bool setCommand(std::string command);
 
+private:
+    std::shared_ptr<CActuatorProxyHandler> m_actuator_proxy_handler;
 
 };

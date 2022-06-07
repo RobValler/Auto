@@ -18,23 +18,21 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
 
-    std::string name = "Sonar_front_left";
-    auto node = rclcpp::Node::make_shared(name + "_ros2_pub_node");
-    auto chatter_pub = node->create_publisher<std_msgs::msg::String>("_ros2_channel", 10);
-    //auto chatter_pub = node->create_publisher<std_msgs::msg::String>(name + "_ros2_channel", 10);
+    std::string name = "actuator";
+    auto node = rclcpp::Node::make_shared(name + "_ros2_sub_node");
+
+    std::function<void(const std_msgs::msg::String::SharedPtr msg)> const readFromQFunc =
+            [node](const std_msgs::msg::String::SharedPtr msg)
+    {
+        RCLCPP_INFO(node->get_logger(), "Actuator command = %s/n", msg->data.c_str());
+    };
+
+    auto chatter_sub = node->create_subscription<std_msgs::msg::String>("actuator_ros2_channel", 10,  readFromQFunc);
 
     rclcpp::Rate loop_rate(10);
 
-    int count = 100;
-    std_msgs::msg::String msg;
-
-    while (rclcpp::ok())
+    while(rclcpp::ok())
     {
-        msg.data = std::to_string(count);
-        count --;
-
-        chatter_pub->publish(msg);
-
         rclcpp::spin_some(node);
         loop_rate.sleep();
     }

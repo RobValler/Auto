@@ -11,6 +11,8 @@
 
 #include "IComponent.h"
 
+#include <string>
+
 class CDecideMain : public IComponent
 {
 public:
@@ -27,8 +29,10 @@ public:
     bool stop() override;
 
     void setData(float distance){ m_distance = distance; }
+    void getData(std::string& data){ data = m_current_decision; }
 
 private:
     float m_distance;
+    std::string m_current_decision;
 
 };
