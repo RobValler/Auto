@@ -25,6 +25,8 @@ public:
     bool start() override;
     bool process() override;
     bool stop() override;
+    bool setTheData(void* ptr) override;
+    bool getTheData(void* ptr) override;
 
 private:
 

@@ -30,10 +30,12 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
 
     // #### SENSOR ###
     // get data
-    std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(data);
+    //std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(data);
+    m_factory->getModule("sensor")->getTheData(&data);
 
     // ### INTERPRETATION ###
-    m_factory->getModule("sit")->process();
+    /// note The SIT is not used yet.
+    //m_factory->getModule("sit")->process();
 
     // ### DECIDE ###
     // run through all the sensor data
@@ -41,7 +43,8 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     {
         CLOG(LOGLEV_RUN, "Sensor (", it.sensor_name, ") distance is ", it.range_sensor_distance );
 
-        std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->setData(it.range_sensor_distance);
+        //std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->setData(it.range_sensor_distance);
+        m_factory->getModule("decide")->setTheData(it.range_sensor_distance);
         m_factory->getModule("decide")->process();
 
         //check for zero distance

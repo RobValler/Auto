@@ -13,6 +13,7 @@
 
 bool CAutoCore::start()
 {
+    CLogger::GetInstance();
     m_factory = std::make_shared<CFactory>();
     m_state_machine = std::make_shared<CStateMachine>();
 

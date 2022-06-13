@@ -30,11 +30,10 @@ public:
     bool start() override;
     bool process() override;
     bool stop() override;
-
-    bool getData(SAllSensorData& data);
+    bool setTheData(void* ptr) override;
+    bool getTheData(void* ptr) override;
 
 private:
     std::shared_ptr<CSensorProxyHandler> m_sensor_proxy_handler;
-    int data_distance{1000};
 
 };

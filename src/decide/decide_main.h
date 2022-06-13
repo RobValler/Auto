@@ -27,9 +27,15 @@ public:
     bool start() override;
     bool process() override;
     bool stop() override;
+    bool setTheData(void* ptr) override {
+        float* p = static_cast<float*>(ptr);
+        m_distance = *p;
+        return true;
+    }
+    bool getTheData(void* ptr) override;
 
-    void setData(float distance){ m_distance = distance; }
-    void getData(std::string& data){ data = m_current_decision; }
+//    void setData(float distance){ m_distance = distance; }
+//    void getData(std::string& data){ data = m_current_decision; }
 
 private:
     float m_distance;

@@ -34,3 +34,16 @@ bool CSitMain::stop()
 
     return true;
 }
+
+
+bool CSitMain::setTheData(void*)
+{
+
+    return true;
+}
+
+bool CSitMain::getTheData(void*)
+{
+
+    return true;
+}

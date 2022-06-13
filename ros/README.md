@@ -32,5 +32,5 @@ Run the following commands and then load the CMakeLists.txt file for the
 relevant ros package.   
 ```
 source /opt/ros/humble/setup.bash
-qtcreator auto_node/CMakeLists.txt sensor_node/CMakeLists.txt
+qtcreator auto_node/CMakeLists.txt sensor_node/CMakeLists.txt actuator_node/CMakeLists.txt
 ```

@@ -44,7 +44,7 @@ private:
 
     std::atomic<bool> m_shutdown_request{false};
     std::thread t_main;
-    float m_distance{100.0f};
+    std::atomic<float> m_distance{100.0f};
     std::string m_name;
     int m_ID;
 };

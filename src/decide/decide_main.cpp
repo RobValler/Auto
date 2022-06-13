@@ -99,3 +99,15 @@ bool CDecideMain::stop()
 
     return true;
 }
+
+bool CDecideMain::setTheData(void*)
+{
+
+    return true;
+}
+
+bool CDecideMain::getTheData(void*)
+{
+
+    return true;
+}

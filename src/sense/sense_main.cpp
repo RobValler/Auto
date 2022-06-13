@@ -10,6 +10,8 @@
 #include "sense_main.h"
 #include "sensor_proxy_handler.h"
 
+#include <memory>
+
 #include "Logger.h"
 
 
@@ -40,8 +42,14 @@ bool CSenseMain::stop()
     return true;
 }
 
-bool CSenseMain::getData(SAllSensorData& data)
+bool CSenseMain::setTheData(void*)
 {
-    m_sensor_proxy_handler->readSensors(data);
+    return true;
+}
+
+bool CSenseMain::getTheData(void* ptr)
+{
+    SAllSensorData* data = (SAllSensorData*)(ptr);
+    m_sensor_proxy_handler->readSensors(*data);
     return true;
 }
