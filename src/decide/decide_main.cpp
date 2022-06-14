@@ -100,14 +100,16 @@ bool CDecideMain::stop()
     return true;
 }
 
-bool CDecideMain::setTheData(void*)
+bool CDecideMain::setTheData(void* ptr)
 {
-
+    float* p = static_cast<float*>(ptr);
+    m_distance = *p;
     return true;
 }
 
-bool CDecideMain::getTheData(void*)
-{
 
+bool CDecideMain::getTheData(void* ptr)
+{
+    ptr = &m_current_decision.at(0);
     return true;
 }

@@ -43,8 +43,9 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     {
         CLOG(LOGLEV_RUN, "Sensor (", it.sensor_name, ") distance is ", it.range_sensor_distance );
 
-        //std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->setData(it.range_sensor_distance);
-        m_factory->getModule("decide")->setTheData(it.range_sensor_distance);
+        std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->setData(it.range_sensor_distance);
+        //float tmp = it.range_sensor_distance;
+        //m_factory->getModule("decide")->setTheData(&tmp);
         m_factory->getModule("decide")->process();
 
         //check for zero distance
@@ -53,6 +54,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     }
 
     std::string decide{"null"};
+    //std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->getData(decide);
     std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->getData(decide);
     CLOG(LOGLEV_RUN, "Decide = ", decide );
 

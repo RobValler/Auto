@@ -36,7 +36,7 @@ public:
     ~CSensorProxy();                                          // Destructor
 
     void read(SSensorProxyData& data);
-    std::string getName() { return m_name; }
+    std::string getName() { return m_proxyName; }
     void stop() { m_shutdown_request = true; }
 
 private:
@@ -45,6 +45,7 @@ private:
     std::atomic<bool> m_shutdown_request{false};
     std::thread t_main;
     std::atomic<float> m_distance{100.0f};
-    std::string m_name;
+    std::string m_proxyName;
+    std::string m_channelName;
     int m_ID;
 };

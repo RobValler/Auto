@@ -22,8 +22,9 @@
 #include <string>
 
 CSensorProxy::CSensorProxy(std::string name)                            // Constructor
-    : m_name(name)
 {
+    m_proxyName = name + "_proxy";
+    m_channelName = name + "_channel";
     t_main = std::thread(&CSensorProxy::process, this);
 }
 
@@ -36,7 +37,7 @@ CSensorProxy::~CSensorProxy()                                           // Destr
 void CSensorProxy::read(SSensorProxyData& data)
 {
     data.sensor_ID = m_ID;
-    data.sensor_name = m_name;
+    data.sensor_name = m_proxyName;
 #if ROS2_IS_ENABLED
     data.range_sensor_distance = m_distance;
 #else
@@ -47,7 +48,7 @@ void CSensorProxy::read(SSensorProxyData& data)
 void CSensorProxy::process()
 {
 #ifdef ROS2_IS_ENABLED
-    auto node = rclcpp::Node::make_shared(m_name + "_ros2_sub_node");
+    auto node = rclcpp::Node::make_shared(m_proxyName);
 
     std::function<void(const std_msgs::msg::String::SharedPtr msg)> const readFromQFunc =
             [node, this](const std_msgs::msg::String::SharedPtr msg)
@@ -56,7 +57,7 @@ void CSensorProxy::process()
     };
 
     //auto chatter_sub = node->create_subscription<std_msgs::msg::String>(m_name + "_ros2_channel", 10,  readFromQFunc);
-    auto chatter_sub = node->create_subscription<std_msgs::msg::String>("_ros2_channel", 10,  readFromQFunc);
+    auto chatter_sub = node->create_subscription<std_msgs::msg::String>(m_channelName, 10,  readFromQFunc);
 
     rclcpp::Rate loop_rate(10);
 

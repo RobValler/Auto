@@ -19,8 +19,10 @@ int main(int argc, char **argv)
     rclcpp::init(argc, argv);
 
     std::string name = "Sonar_front_left";
-    auto node = rclcpp::Node::make_shared(name + "_ros2_pub_node");
-    auto chatter_pub = node->create_publisher<std_msgs::msg::String>("_ros2_channel", 10);
+    std::string channel = name + "_channel";
+
+    auto node = rclcpp::Node::make_shared(name);
+    auto chatter_pub = node->create_publisher<std_msgs::msg::String>(channel, 10);
     //auto chatter_pub = node->create_publisher<std_msgs::msg::String>(name + "_ros2_channel", 10);
 
     rclcpp::Rate loop_rate(10);
