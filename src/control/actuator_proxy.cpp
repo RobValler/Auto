@@ -21,18 +21,14 @@
 #include <functional>
 #include <string>
 
-CActuatorProxy::CActuatorProxy(std::string name)                            // Constructor
-    : m_name(name)
+CActuatorProxy::CActuatorProxy(std::string name)
 {
+    m_name = name;
+    m_channelName = name + "_channel";
 #ifdef ROS2_IS_ENABLED
-    m_node = rclcpp::Node::make_shared(m_name + "_ros2_pub_node");
-    m_pub = m_node->create_publisher<std_msgs::msg::String>("actuator_ros2_channel", 10);
+    m_node = rclcpp::Node::make_shared(m_name);
+    m_pub = m_node->create_publisher<std_msgs::msg::String>(m_channelName, 10);
 #endif
-}
-
-CActuatorProxy::~CActuatorProxy()                                           // Destructor
-{
-
 }
 
 void CActuatorProxy::write(const SActuatorProxyData& data)

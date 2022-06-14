@@ -39,11 +39,11 @@ public:
         return true;
     }
 
-    void readSensors(SAllSensorData& allSensorData) {
-        SSensorProxyData p_sensor;
+    void readAllSensors(SAllSensorData& allSensorData) {
+        SSensorProxyData sensor;
         for(const auto& it: m_sensor_proxy_list) {            
-            it->read(p_sensor);
-            allSensorData.data.emplace_back(std::move(p_sensor));
+            it->read(sensor);
+            allSensorData.data.emplace_back(std::move(sensor));
         }
     }
 

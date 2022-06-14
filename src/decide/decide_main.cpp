@@ -108,8 +108,8 @@ bool CDecideMain::setTheData(void* ptr)
 }
 
 
-bool CDecideMain::getTheData(void* ptr)
+bool CDecideMain::getTheData(void*)
 {
-    ptr = &m_current_decision.at(0);
+//    ptr = &m_current_decision.at(0);
     return true;
 }

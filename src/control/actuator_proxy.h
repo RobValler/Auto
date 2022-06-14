@@ -28,22 +28,21 @@ struct SActuatorProxyData
 class CActuatorProxy
 {
 public:
-    CActuatorProxy(std::string name);                           // Constructor
-    CActuatorProxy(const CActuatorProxy&) = delete;               // Copy constructor
-    CActuatorProxy(CActuatorProxy&&) = delete;                    // Move constructor
-    CActuatorProxy& operator=(const CActuatorProxy&) = delete;    // Copy assignment operator
-    CActuatorProxy& operator=(CActuatorProxy&&) = delete;         // Move assignment operator
-    ~CActuatorProxy();                                          // Destructor
+    CActuatorProxy(std::string name);                               // Constructor
+    CActuatorProxy(const CActuatorProxy&) = delete;                 // Copy constructor
+    CActuatorProxy(CActuatorProxy&&) = delete;                      // Move constructor
+    CActuatorProxy& operator=(const CActuatorProxy&) = delete;      // Copy assignment operator
+    CActuatorProxy& operator=(CActuatorProxy&&) = delete;           // Move assignment operator
+    ~CActuatorProxy() =default;                                     // Destructor
 
     void write(const SActuatorProxyData& data);
     std::string getName() { return m_name; }
     void stop() { return; }
 
 private:
-    std::string m_name;
-    int m_ID;
-
-    rclcpp::Node::SharedPtr m_node;
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr m_pub;
-
+    std::string m_name;                                            ///<
+    std::string m_channelName;                                          ///<
+    int m_ID;                                                           ///<
+    rclcpp::Node::SharedPtr m_node;                                     ///<
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr m_pub;          ///<
 };

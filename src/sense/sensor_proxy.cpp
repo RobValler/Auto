@@ -21,14 +21,14 @@
 #include <functional>
 #include <string>
 
-CSensorProxy::CSensorProxy(std::string name)                            // Constructor
+CSensorProxy::CSensorProxy(std::string name)
 {
     m_proxyName = name + "_proxy";
     m_channelName = name + "_channel";
     t_main = std::thread(&CSensorProxy::process, this);
 }
 
-CSensorProxy::~CSensorProxy()                                           // Destructor
+CSensorProxy::~CSensorProxy()
 {
     m_shutdown_request = true;
     t_main.join();

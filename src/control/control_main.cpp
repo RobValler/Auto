@@ -16,6 +16,7 @@ bool CControlMain::init()
 {
     m_actuator_proxy_handler = std::make_shared<CActuatorProxyHandler>();
     m_actuator_proxy_handler->addActuator(std::make_shared<CActuatorProxy>("main_drive"));
+    //m_actuator_proxy_handler->addActuator(std::make_shared<CActuatorProxy>("steering"));
 
     return true;
 }
@@ -58,10 +59,19 @@ bool CControlMain::setCommand(std::string command)
     if("Accelerate" == command) {
         m_actuator_proxy_handler->writeToActuator("main_drive", command);
     }
-    if("Brake" == command) {
+    else if("Brake" == command) {
         m_actuator_proxy_handler->writeToActuator("main_drive", command);
     }
-
+    else if("Left" == command) {
+        m_actuator_proxy_handler->writeToActuator("steering", command);
+    }
+    else if("Right" == command) {
+        m_actuator_proxy_handler->writeToActuator("steering", command);
+    }
+    else
+    {
+        // default
+    }
 
     return true;
 }

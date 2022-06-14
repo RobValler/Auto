@@ -33,6 +33,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     //std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(data);
     m_factory->getModule("sensor")->getTheData(&data);
 
+
     // ### INTERPRETATION ###
     /// note The SIT is not used yet.
     //m_factory->getModule("sit")->process();

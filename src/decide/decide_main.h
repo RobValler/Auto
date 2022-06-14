@@ -28,7 +28,7 @@ public:
     bool process() override;
     bool stop() override;
     bool setTheData(void* ptr) override;
-    bool getTheData(void* ptr) override;
+    bool getTheData(void*) override;
 
     void setData(float distance){ m_distance = distance; }
     void getData(std::string& data){ data = m_current_decision; }

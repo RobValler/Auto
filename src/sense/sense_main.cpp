@@ -49,7 +49,7 @@ bool CSenseMain::setTheData(void*)
 
 bool CSenseMain::getTheData(void* ptr)
 {
-    SAllSensorData* data = (SAllSensorData*)(ptr);
-    m_sensor_proxy_handler->readSensors(*data);
+    SAllSensorData* data = static_cast<SAllSensorData*>(ptr);
+    m_sensor_proxy_handler->readAllSensors(*data);
     return true;
 }

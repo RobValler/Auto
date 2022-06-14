@@ -18,12 +18,17 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
 
-    std::string name = "Sonar_front_left";
-    std::string channel = name + "_channel";
+    std::string name_left = "Sonar_front_left";
+    std::string channel_left = name_left + "_channel";
+    std::string name_right = "Sonar_front_right";
+    std::string channel_right = name_right + "_channel";
 
-    auto node = rclcpp::Node::make_shared(name);
-    auto chatter_pub = node->create_publisher<std_msgs::msg::String>(channel, 10);
-    //auto chatter_pub = node->create_publisher<std_msgs::msg::String>(name + "_ros2_channel", 10);
+
+    auto node_left = rclcpp::Node::make_shared(name_left);
+    auto chatter_pub_left = node_left->create_publisher<std_msgs::msg::String>(channel_left, 10);
+    auto node_right = rclcpp::Node::make_shared(name_right);
+    auto chatter_pub_right = node_right->create_publisher<std_msgs::msg::String>(channel_right, 10);
+
 
     rclcpp::Rate loop_rate(10);
 
@@ -35,9 +40,10 @@ int main(int argc, char **argv)
         msg.data = std::to_string(count);
         count --;
 
-        chatter_pub->publish(msg);
+        chatter_pub_left->publish(msg);
+        chatter_pub_right->publish(msg);
 
-        rclcpp::spin_some(node);
+        rclcpp::spin_some(node_left);
         loop_rate.sleep();
     }
 
