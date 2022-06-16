@@ -13,6 +13,8 @@
 
 #include <string>
 
+struct SSITDistancesData;
+
 class CDecideMain : public IComponent
 {
 public:
@@ -30,8 +32,8 @@ public:
     bool setTheData(void* ptr) override;
     bool getTheData(void*) override;
 
-    void setData(float distance){ m_distance = distance; }
-    void getData(std::string& data){ data = m_current_decision; }
+    bool setData(const SSITDistancesData& data);
+    bool getData(std::string& data);
 
 private:
     float m_distance;

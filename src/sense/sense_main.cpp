@@ -18,8 +18,8 @@
 bool CSenseMain::init()
 {
     m_sensor_proxy_handler = std::make_shared<CSensorProxyHandler>();
-    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar_front_left"));
-    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("Sonar_front_right"));
+    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("sonar_front_left"));
+    m_sensor_proxy_handler->addSensor(std::make_shared<CSensorProxy>("sonar_front_right"));
 
     return true;
 }
@@ -39,6 +39,12 @@ bool CSenseMain::process()
 
 bool CSenseMain::stop()
 {
+    return true;
+}
+
+bool CSenseMain::getData(SAllSensorData& data)
+{
+    m_sensor_proxy_handler->readAllSensors(data);
     return true;
 }
 

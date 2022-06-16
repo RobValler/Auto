@@ -9,6 +9,8 @@
 
 #include "sensor_proxy.h"
 
+#include "sensor_data.h"
+
 #ifdef ROS2_IS_ENABLED
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/node.hpp"
@@ -23,7 +25,7 @@
 
 CSensorProxy::CSensorProxy(std::string name)
 {
-    m_proxyName = name + "_proxy";
+    m_proxyName = name;
     m_channelName = name + "_channel";
     t_main = std::thread(&CSensorProxy::process, this);
 }

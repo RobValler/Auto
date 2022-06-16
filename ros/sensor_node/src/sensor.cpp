@@ -18,9 +18,9 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
 
-    std::string name_left = "Sonar_front_left";
+    std::string name_left = "sonar_front_left";
     std::string channel_left = name_left + "_channel";
-    std::string name_right = "Sonar_front_right";
+    std::string name_right = "sonar_front_right";
     std::string channel_right = name_right + "_channel";
 
 

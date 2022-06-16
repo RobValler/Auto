@@ -9,6 +9,8 @@
 
 #include "decide_main.h"
 
+#include "sit_data.h"
+
 #include "Logger.h"
 
 #include <vector>
@@ -111,5 +113,17 @@ bool CDecideMain::setTheData(void* ptr)
 bool CDecideMain::getTheData(void*)
 {
 //    ptr = &m_current_decision.at(0);
+    return true;
+}
+
+bool CDecideMain::setData(const SSITDistancesData& data)
+{
+    m_distance = data.distanceToFront;
+    return true;
+}
+
+bool CDecideMain::getData(std::string& data)
+{
+    data = m_current_decision;
     return true;
 }

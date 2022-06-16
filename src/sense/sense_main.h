@@ -33,6 +33,8 @@ public:
     bool setTheData(void* ptr) override;
     bool getTheData(void* ptr) override;
 
+    bool getData(SAllSensorData& data);
+
 private:
     std::shared_ptr<CSensorProxyHandler> m_sensor_proxy_handler;
 

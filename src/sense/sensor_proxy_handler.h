@@ -14,10 +14,7 @@
 #include <memory>
 #include <vector>
 
-struct SAllSensorData
-{
-    std::vector<SSensorProxyData> data;
-};
+struct SAllSensorData;
 
 class CSensorProxyHandler
 {
@@ -29,23 +26,9 @@ public:
     CSensorProxyHandler& operator=(CSensorProxyHandler&&) = delete;         // Move assignment operator
     ~CSensorProxyHandler()=default;                                         // Destructor
 
-    bool addSensor(std::shared_ptr<CSensorProxy> p_sensor) {
-        m_sensor_proxy_list.emplace_back(std::move(p_sensor));
-        return true;
-    }
-
-    bool removeSensor(std::shared_ptr<CSensorProxy>) {
-
-        return true;
-    }
-
-    void readAllSensors(SAllSensorData& allSensorData) {
-        SSensorProxyData sensor;
-        for(const auto& it: m_sensor_proxy_list) {            
-            it->read(sensor);
-            allSensorData.data.emplace_back(std::move(sensor));
-        }
-    }
+    bool addSensor(std::shared_ptr<CSensorProxy> p_sensor);
+    bool removeSensor(std::shared_ptr<CSensorProxy>);
+    void readAllSensors(SAllSensorData& allSensorData);
 
 private:
     std::vector<std::shared_ptr<CSensorProxy>> m_sensor_proxy_list;

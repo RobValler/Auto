@@ -11,6 +11,9 @@
 
 #include "IComponent.h"
 
+#include "sensor_data.h"
+#include "sit_data.h"
+
 class CSitMain : public IComponent
 {
 public:
@@ -28,7 +31,11 @@ public:
     bool setTheData(void* ptr) override;
     bool getTheData(void* ptr) override;
 
-private:
+    bool setData(const SAllSensorData& data);
+    bool getData(SSITDistancesData& data);
 
+private:
+    SSITDistancesData m_currentDistanceData;
+    SAllSensorData m_currentSensorData{};
 
 };
