@@ -27,29 +27,29 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
 {
     SAllSensorData allSensorData;
     SSITDistancesData distanceData;
+    std::string Decide;
 
     // #### SENSOR CLUSTER (HANDLER) ###
     std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(allSensorData);
 
     // ### SITUATIONAL INTERPRETATION ###
     std::static_pointer_cast<CSitMain>(m_factory->getModule("sit"))->setData(allSensorData);
+    m_factory->getModule("sit")->process();
     std::static_pointer_cast<CSitMain>(m_factory->getModule("sit"))->getData(distanceData);
 
     CLOG(LOGLEV_RUN, "Distance to front = ", distanceData.distanceToFront );
-
     // exit when the distance to the front object is less than minimum distance
     if(distanceData.distanceToFront <= 1.0f)
         return StateCodeRunExitOK;
 
     // ### DECIDE ###
-    std::string decide{"null"};
     std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->setData(distanceData);
     m_factory->getModule("decide")->process();
-    std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->getData(decide);
-    CLOG(LOGLEV_RUN, "Decide = ", decide );
+    std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->getData(Decide);
+    CLOG(LOGLEV_RUN, "Decide = ", Decide );
 
     // ### CONTROL ###
-    std::static_pointer_cast<CControlMain>(m_factory->getModule("control"))->setCommand(decide);
+    std::static_pointer_cast<CControlMain>(m_factory->getModule("control"))->setCommand(Decide);
 
     return StateCodeRunOK;
 }

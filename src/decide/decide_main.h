@@ -11,9 +11,9 @@
 
 #include "IComponent.h"
 
-#include <string>
+#include "sit_data.h"
 
-struct SSITDistancesData;
+#include <string>
 
 class CDecideMain : public IComponent
 {
@@ -22,21 +22,21 @@ public:
     CDecideMain(const CDecideMain&) = delete;               // Copy constructor
     CDecideMain(CDecideMain&&) = delete;                    // Move constructor
     CDecideMain& operator=(const CDecideMain&) = delete;    // Copy assignment operator
-    CDecideMain& operator=(CDecideMain&&) = delete;         // Move assignment operator
+    CDecideMain& operator=(CDecideMain&&) = delete;        // Move assignment operator
     ~CDecideMain()=default;                               // Destructor
 
     bool init() override;
     bool start() override;
     bool process() override;
     bool stop() override;
-    bool setTheData(void* ptr) override;
-    bool getTheData(void*) override;
+    bool setTheData(void*) override { return true; }
+    bool getTheData(void*) override { return true; }
 
     bool setData(const SSITDistancesData& data);
     bool getData(std::string& data);
 
 private:
-    float m_distance;
+    SSITDistancesData m_distanceData;                       ///<
     std::string m_current_decision;
 
 };

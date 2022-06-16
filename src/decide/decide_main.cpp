@@ -9,8 +9,6 @@
 
 #include "decide_main.h"
 
-#include "sit_data.h"
-
 #include "Logger.h"
 
 #include <vector>
@@ -52,7 +50,7 @@ std::vector<SRuleTableStruct> l_rule_table
     // IF                       |   COMPARE           | EXPECTED      | RESULT
     //================================================================================
     {/*current distance*/           EEC_LESS_THAN,      20.0f,           &brake},
-    {/*current distance*/           EEC_MORE_THAN,      20.0f,           &accelerate}
+    {/*current distance*/           EEC_MORE_THAN,      50.0f,           &accelerate}
 
 };
 
@@ -78,13 +76,13 @@ bool CDecideMain::process()
         {
         case EEC_LESS_THAN:
         {
-            if(m_distance < it.expected_data)
+            if(m_distanceData.distanceToFront < it.expected_data)
                 m_current_decision = it.func();
             break;
         }
         case EEC_MORE_THAN:
         {
-            if(m_distance > it.expected_data)
+            if(m_distanceData.distanceToFront > it.expected_data)
                 m_current_decision = it.func();
             break;
         }
@@ -102,23 +100,9 @@ bool CDecideMain::stop()
     return true;
 }
 
-bool CDecideMain::setTheData(void* ptr)
-{
-    float* p = static_cast<float*>(ptr);
-    m_distance = *p;
-    return true;
-}
-
-
-bool CDecideMain::getTheData(void*)
-{
-//    ptr = &m_current_decision.at(0);
-    return true;
-}
-
 bool CDecideMain::setData(const SSITDistancesData& data)
 {
-    m_distance = data.distanceToFront;
+    m_distanceData = data;
     return true;
 }
 

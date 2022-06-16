@@ -40,19 +40,6 @@ bool CControlMain::stop()
     return true;
 }
 
-bool CControlMain::setTheData(void*)
-{
-
-    return true;
-}
-
-bool CControlMain::getTheData(void*)
-{
-
-    return true;
-}
-
-
 bool CControlMain::setCommand(std::string command)
 {
 
