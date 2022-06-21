@@ -11,7 +11,6 @@
 
 #ifdef ROS2_IS_ENABLED
 #include "rclcpp/rclcpp.hpp"
-
 #else
 #include "sim_main.h"
 #endif
@@ -27,15 +26,15 @@ CActuatorProxy::CActuatorProxy(std::string name)
     m_channelName = name + "_channel";
 #ifdef ROS2_IS_ENABLED
     m_node = rclcpp::Node::make_shared(m_name);
-    m_pub = m_node->create_publisher<std_msgs::msg::String>(m_channelName, 10);
+    m_pub = m_node->create_publisher<msg_def::msg::ActuatorCmd>(m_channelName, 10);
 #endif
 }
 
 void CActuatorProxy::write(const SActuatorProxyData& data)
 {
 #if ROS2_IS_ENABLED
-    std_msgs::msg::String msg;
-    msg.data = data.command;
+    msg_def::msg::ActuatorCmd msg;
+    msg.command = data.command;
     m_pub->publish(msg);
 #else
 

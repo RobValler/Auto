@@ -17,6 +17,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(msg_def REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -30,7 +31,8 @@ ament_package()
 add_executable(cpp_code src/actuator.cpp)
 ament_target_dependencies(cpp_code
                             rclcpp
-                            std_msgs)
+                            std_msgs
+                            msg_def)
 
 install(TARGETS
     cpp_code

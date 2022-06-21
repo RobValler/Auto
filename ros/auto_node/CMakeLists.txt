@@ -19,7 +19,7 @@ add_definitions(-DROS2_IS_ENABLED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-
+find_package(msg_def REQUIRED)
 
 #paths
 #external
@@ -71,7 +71,8 @@ add_executable(cpp_code ${SOURCES} ${HEADERS} )
 
 ament_target_dependencies(cpp_code
                             rclcpp
-                            std_msgs)
+                            std_msgs
+                            msg_def)
                         
 install(TARGETS
     cpp_code

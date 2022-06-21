@@ -13,7 +13,7 @@
 #include <atomic>
 
 #ifdef ROS2_IS_ENABLED
-#include "std_msgs/msg/string.hpp"
+#include "msg_def/msg/actuator_cmd.hpp"
 #include "rclcpp/node.hpp"
 #endif
 
@@ -40,9 +40,9 @@ public:
     void stop() { return; }
 
 private:
-    std::string m_name;                                            ///<
+    std::string m_name;                                                 ///<
     std::string m_channelName;                                          ///<
     int m_ID;                                                           ///<
     rclcpp::Node::SharedPtr m_node;                                     ///<
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr m_pub;          ///<
+    rclcpp::Publisher<msg_def::msg::ActuatorCmd>::SharedPtr m_pub;      ///<
 };

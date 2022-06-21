@@ -13,10 +13,6 @@
 #include <string>
 #include <atomic>
 
-#ifdef ROS2_IS_ENABLED
-#include "std_msgs/msg/string.hpp"
-#endif
-
 struct SSensorProxyData;
 
 class CSensorProxy
@@ -40,6 +36,7 @@ private:
     std::thread t_main;
     std::atomic<float> m_distance{100.0f};
     std::string m_proxyName;
+    std::string m_SensorName;
     std::string m_channelName;
     int m_ID;
 };

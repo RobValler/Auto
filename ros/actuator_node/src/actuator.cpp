@@ -8,9 +8,8 @@
  *****************************************************************/
 
 #include "rclcpp/rclcpp.hpp"
-
-#include "std_msgs/msg/string.hpp"
 #include "rclcpp/node.hpp"
+#include "msg_def/msg/actuator_cmd.hpp"
 
 #include <string>
 
@@ -22,13 +21,13 @@ int main(int argc, char **argv)
     std::string channel = name + "_channel";
     auto node = rclcpp::Node::make_shared(name);
 
-    std::function<void(const std_msgs::msg::String::SharedPtr msg)> const readFromQFunc =
-            [node](const std_msgs::msg::String::SharedPtr msg)
+    std::function<void(const msg_def::msg::ActuatorCmd msg)> const readFromQFunc =
+            [node](const msg_def::msg::ActuatorCmd msg)
     {
-        RCLCPP_INFO(node->get_logger(), "Actuator command = %s/n", msg->data.c_str());
+        RCLCPP_INFO(node->get_logger(), "Actuator command = %s/n", msg.command.c_str());
     };
 
-    auto chatter_sub = node->create_subscription<std_msgs::msg::String>(channel, 10,  readFromQFunc);
+    auto chatter_sub = node->create_subscription<msg_def::msg::ActuatorCmd>(channel, 10,  readFromQFunc);
 
     rclcpp::Rate loop_rate(10);
 

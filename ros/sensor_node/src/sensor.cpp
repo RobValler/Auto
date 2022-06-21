@@ -8,9 +8,8 @@
  *****************************************************************/
 
 #include "rclcpp/rclcpp.hpp"
-
-#include "std_msgs/msg/string.hpp"
 #include "rclcpp/node.hpp"
+#include "msg_def/msg/sensor_data.hpp"
 
 #include <string>
 
@@ -23,25 +22,26 @@ int main(int argc, char **argv)
     std::string name_right = "sonar_front_right";
     std::string channel_right = name_right + "_channel";
 
-
     auto node_left = rclcpp::Node::make_shared(name_left);
-    auto chatter_pub_left = node_left->create_publisher<std_msgs::msg::String>(channel_left, 10);
+    auto chatter_pub_left = node_left->create_publisher<msg_def::msg::SensorData>(channel_left, 10);
     auto node_right = rclcpp::Node::make_shared(name_right);
-    auto chatter_pub_right = node_right->create_publisher<std_msgs::msg::String>(channel_right, 10);
+    auto chatter_pub_right = node_right->create_publisher<msg_def::msg::SensorData>(channel_right, 10);
 
 
     rclcpp::Rate loop_rate(10);
 
     int count = 100;
-    std_msgs::msg::String msg;
+    msg_def::msg::SensorData payload;
 
     while (rclcpp::ok())
-    {
-        msg.data = std::to_string(count);
-        count --;
+    {        
+        payload.distance = count--;
 
-        chatter_pub_left->publish(msg);
-        chatter_pub_right->publish(msg);
+        payload.proxy_name = name_left;
+        chatter_pub_left->publish(payload);
+
+        payload.proxy_name = name_right;
+        chatter_pub_right->publish(payload);
 
         rclcpp::spin_some(node_left);
         loop_rate.sleep();

@@ -21,10 +21,16 @@ source /opt/ros/humble/setup.bash
 ros2 pkg create <package_name> --build-type ament_cmake --dependencies rclcpp
 ```
 Add the source code and ensure the CMakeLists.txt is updated.   
+Build all:   
 ```
 colcon build --symlink-install
 source install/setup.bash
 ros2 run <package_name> cpp_code
+```
+
+Use the following to build a specific package:   
+```
+colcon build --packages-select <package_name>
 ```
 
 ### Using QtCreator
