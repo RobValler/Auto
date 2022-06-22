@@ -30,7 +30,8 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     std::string Decide;
 
     // #### SENSOR CLUSTER (HANDLER) ###
-    std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(allSensorData);
+   // std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(allSensorData);
+    GET_MODULE(CSenseMain, "sensor")->getData(allSensorData);
 
     // ### SITUATIONAL INTERPRETATION ###
     std::static_pointer_cast<CSitMain>(m_factory->getModule("sit"))->setData(allSensorData);
