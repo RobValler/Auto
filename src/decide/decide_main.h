@@ -33,10 +33,11 @@ public:
     bool getTheData(void*) override { return true; }
 
     bool setData(const SSITDistancesData& data);
+    bool setData(const SOccupancyGrid& data);
     bool getData(std::string& data);
 
 private:
-    SSITDistancesData m_distanceData;                       ///<
-    std::string m_current_decision;
-
+    SSITDistancesData m_distanceData;               ///<
+    SOccupancyGrid m_occupancyGrid;                 ///<
+    std::string m_current_decision;                 ///<
 };

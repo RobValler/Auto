@@ -33,9 +33,11 @@ public:
 
     bool setData(const SAllSensorData& data);
     bool getData(SSITDistancesData& data);
+    bool getData(SOccupancyGrid& data);
 
 private:
     SSITDistancesData m_currentDistanceData;
     SAllSensorData m_currentSensorData{};
+    SOccupancyGrid m_occupancyGrid{};
 
 };

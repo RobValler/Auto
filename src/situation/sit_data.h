@@ -9,10 +9,28 @@
 
 #pragma once
 
+#include <vector>
+
 struct SSITDistancesData
 {
     float distanceToFront;
     float distanceToLeftSide;
     float distanceToRightSide;
     float distanceToRear;
+};
+
+
+struct SOccupancySquare
+{
+    // this is 10x10 cm
+    float x;
+    float y;
+    float z{0.0f}; // not used yet
+
+    bool state{false}; // occupancy state: true is occupied, false is not
+};
+
+struct SOccupancyGrid
+{
+    SOccupancySquare grid[50][50];
 };

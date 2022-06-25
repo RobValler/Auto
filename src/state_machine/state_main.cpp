@@ -27,6 +27,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
 {
     SAllSensorData allSensorData;
     SSITDistancesData distanceData;
+    SOccupancyGrid occupancyGrid;
     std::string Decide;
 
     // #### SENSOR CLUSTER (HANDLER) ###
@@ -37,6 +38,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     std::static_pointer_cast<CSitMain>(m_factory->getModule("sit"))->setData(allSensorData);
     m_factory->getModule("sit")->process();
     std::static_pointer_cast<CSitMain>(m_factory->getModule("sit"))->getData(distanceData);
+    GET_MODULE(CSitMain, "sit")->getData(occupancyGrid);
 
     CLOG(LOGLEV_RUN, "Distance to front = ", distanceData.distanceToFront );
     // exit when the distance to the front object is less than minimum distance
@@ -45,6 +47,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
 
     // ### DECIDE ###
     std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->setData(distanceData);
+    GET_MODULE(CDecideMain, "decide")->setData(occupancyGrid);
     m_factory->getModule("decide")->process();
     std::static_pointer_cast<CDecideMain>(m_factory->getModule("decide"))->getData(Decide);
     CLOG(LOGLEV_RUN, "Decide = ", Decide );

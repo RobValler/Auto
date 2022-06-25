@@ -56,13 +56,11 @@ std::vector<SRuleTableStruct> l_rule_table
 
 bool CDecideMain::init()
 {
-
     return true;
 }
 
 bool CDecideMain::start()
 {
-
     return true;
 }
 
@@ -103,6 +101,12 @@ bool CDecideMain::stop()
 bool CDecideMain::setData(const SSITDistancesData& data)
 {
     m_distanceData = data;
+    return true;
+}
+
+bool CDecideMain::setData(const SOccupancyGrid& data)
+{
+    m_occupancyGrid = data;
     return true;
 }
 

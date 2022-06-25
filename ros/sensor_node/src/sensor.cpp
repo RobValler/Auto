@@ -39,6 +39,7 @@ int main(int argc, char **argv)
 
         payload.proxy_name = name_left;
         chatter_pub_left->publish(payload);
+        RCLCPP_INFO(node_left->get_logger(), "Sensor distance = %d/n", payload.distance);
 
         payload.proxy_name = name_right;
         chatter_pub_right->publish(payload);
