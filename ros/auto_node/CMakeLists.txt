@@ -14,12 +14,17 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 add_definitions(-DROS2_IS_ENABLED)
+add_definitions(-DGAZEBO_IS_ENABLED)
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(msg_def REQUIRED)
+find_package(gazebo REQUIRED)
+
+find_package(geometry_msgs REQUIRED)
+
 
 #paths
 #external
@@ -72,7 +77,9 @@ add_executable(cpp_code ${SOURCES} ${HEADERS} )
 ament_target_dependencies(cpp_code
                             rclcpp
                             std_msgs
-                            msg_def)
+                            msg_def
+                            gazebo
+                            geometry_msgs)
                         
 install(TARGETS
     cpp_code

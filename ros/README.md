@@ -40,3 +40,21 @@ relevant ros package.
 source /opt/ros/humble/setup.bash
 qtcreator auto_node/CMakeLists.txt sensor_node/CMakeLists.txt actuator_node/CMakeLists.txt
 ```
+
+### Using Gazebo
+Install the support packages:   
+```
+sudo apt install ros-humble-gazebo-ros-pkgs
+sudo apt install ros-humble-ros-core ros-foxy-geometry2
+gedit /opt/ros/humble/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
+```
+In terminal 1:   
+```
+gazebo --verbose /opt/ros/humble/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
+```
+In terminal 2:   
+```
+ros2 topic pub /demo/cmd_demo geometry_msgs/Twist '{linear: {x: 1.0}}' -1
+```
+
+

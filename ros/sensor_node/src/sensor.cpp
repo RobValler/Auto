@@ -12,9 +12,28 @@
 #include "msg_def/msg/sensor_data.hpp"
 
 #include <string>
+#include <signal.h>
+#include <atomic>
+
+namespace  {
+    static std::atomic<bool> l_shutdowndown;
+}
+
+void my_handler(int)
+{
+    l_shutdowndown = true;
+}
 
 int main(int argc, char **argv)
 {
+    l_shutdowndown = false;
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = my_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, NULL);
+    sigaction(SIGTERM, &sigIntHandler, NULL);
+
     rclcpp::init(argc, argv);
 
     std::string name_left = "sonar_front_left";
@@ -34,7 +53,10 @@ int main(int argc, char **argv)
     msg_def::msg::SensorData payload;
 
     while (rclcpp::ok())
-    {        
+    {
+        if(count < 0)
+            count = 100;
+
         payload.distance = count--;
 
         payload.proxy_name = name_left;
@@ -46,6 +68,9 @@ int main(int argc, char **argv)
 
         rclcpp::spin_some(node_left);
         loop_rate.sleep();
+        
+        if(l_shutdowndown)
+	    break;
     }
 
     rclcpp::shutdown();
