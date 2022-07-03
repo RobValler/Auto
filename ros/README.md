@@ -51,6 +51,7 @@ gedit /opt/ros/humble/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.wor
 In terminal 1:   
 ```
 gazebo --verbose /opt/ros/humble/share/gazebo_plugins/worlds/gazebo_ros_diff_drive_demo.world
+gazebo --verbose /home/rob/WORK/Development/Auto/simulation/gazebo/my_world.sdf
 ```
 In terminal 2:   
 ```

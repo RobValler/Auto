@@ -30,7 +30,7 @@ find_package(geometry_msgs REQUIRED)
 #external
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/StateMachine)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/Factory)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/Logger)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../../DevFramework/Logger/include)
 
 #internal
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)

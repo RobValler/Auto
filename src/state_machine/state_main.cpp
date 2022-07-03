@@ -57,3 +57,9 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
 
     return StateCodeRunOK;
 }
+
+IStateClassBase::StateReturnCode CStateMain::StateExit()
+{
+    std::static_pointer_cast<CControlMain>(m_factory->getModule("control"))->setCommand("Brake");
+    return StateCodeExitOK;
+}

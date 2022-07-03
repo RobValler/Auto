@@ -27,7 +27,7 @@ public:
 
     StateReturnCode StateEntry() override { return StateCodeEntryOK; }
     StateReturnCode StateRun() override;
-    StateReturnCode StateExit() override { return StateCodeExitOK; }
+    StateReturnCode StateExit() override;
 
 private:
     std::shared_ptr<CFactory> m_factory;

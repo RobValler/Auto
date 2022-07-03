@@ -14,10 +14,29 @@
 #include "Logger.h"
 
 #include <chrono>
+#include <signal.h>
+#include <atomic>
 
+namespace  {
+    static std::atomic<bool> l_shutdowndown;
+}
 
-int main(int argc, char *argv[])
+void my_handler(int)
 {
+    CLOG(LOGLEV_RUN, "POSIX Interrupt detected, stopping!");
+    l_shutdowndown = true;
+}
+
+int main(int argc, char **argv)
+{
+    l_shutdowndown = false;
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = my_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, NULL);
+    sigaction(SIGTERM, &sigIntHandler, NULL);
+
     CAutoCore core;
 
     rclcpp::init(argc, argv);
@@ -25,10 +44,11 @@ int main(int argc, char *argv[])
 
     while(true)
     {
-        if(!core.process())
+        if(!core.process() || true == l_shutdowndown)
             break;
 
         std::this_thread::sleep_for( std::chrono::milliseconds(50) );
+
     }
 
     rclcpp::shutdown();

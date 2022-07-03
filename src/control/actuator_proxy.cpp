@@ -40,10 +40,13 @@ void CActuatorProxy::write(const SActuatorProxyData& data)
 #ifdef GAZEBO_IS_ENABLED
     geometry_msgs::msg::Twist msg;
 
-    if("Accelerate" == data.command)
+    if("Accelerate" == data.command) {
         msg.linear.x = 1.0;
-    else if("Brakes" == data.command)
+    } else if("Brakes" == data.command) {
         msg.linear.x = -1.0;
+    } else {
+
+    }
 
     m_pub2->publish(msg);
 #else
