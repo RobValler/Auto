@@ -14,7 +14,6 @@
 #ifdef ROS2_IS_ENABLED
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/node.hpp"
-#include "msg_def/msg/sensor_data.hpp"
 #else
 #include "sim_main.h"
 #endif
@@ -53,18 +52,41 @@ void CSensorProxy::process()
 #ifdef ROS2_IS_ENABLED
     auto node = rclcpp::Node::make_shared(m_proxyName);
 
-    std::function<void(const msg_def::msg::SensorData msg)> const readFromQFunc =
-            [node, this](const msg_def::msg::SensorData msg)
+    std::function<void(const sensor_msgs::msg::PointCloud msg)> const readPointcloud =
+            [node, this](const sensor_msgs::msg::PointCloud msg)
     {
-        m_ID = msg.id;
-        m_SensorName = msg.proxy_name;
-        m_distance = msg.distance;
+        int size = msg.points.size();
+        //msg.points.at(7753).x
+        CLOG(LOGLEV_RUN, "Sensor range = ",
+                            msg.points.at(7753).x, ":",
+                            msg.points.at(7753).y, ":",
+                            msg.points.at(7753).z, ":");
+
+
+        m_distance = msg.points.at(7753).x;
+
+    };
+
+    std::function<void(const sensor_msgs::msg::Range msg)> const readRange =
+            [node, this](const sensor_msgs::msg::Range msg)
+    {
+        if(msg.range < msg.max_range) {
+            m_distance = msg.range;
+        }
+        else
+        {
+            m_distance = 100.0f;
+        }
     };
 
     //auto chatter_sub = node->create_subscription<std_msgs::msg::String>(m_name + "_ros2_channel", 10,  readFromQFunc);
-    auto chatter_sub = node->create_subscription<msg_def::msg::SensorData>(m_channelName, 10,  readFromQFunc);
+    //auto chatter_sub = node->create_subscription<msg_def::msg::SensorData>(m_channelName, 10,  readFromQFunc);
 
-    rclcpp::Rate loop_rate(10);
+    m_subPointCloud = node->create_subscription<sensor_msgs::msg::PointCloud>("/ray/pointcloud", 10,  readPointcloud);
+    m_subRange = node->create_subscription<sensor_msgs::msg::Range>("/ray/range", 10,  readRange);
+
+
+    rclcpp::Rate loop_rate(3);
 
     while(!m_shutdown_request)
     {

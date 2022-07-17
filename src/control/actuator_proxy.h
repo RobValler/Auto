@@ -13,12 +13,13 @@
 #include <atomic>
 
 #ifdef ROS2_IS_ENABLED
-#include "msg_def/msg/actuator_cmd.hpp"
 #include "rclcpp/node.hpp"
 #ifdef GAZEBO_IS_ENABLED
 #include "geometry_msgs/msg/twist.hpp"
-#endif
-#endif
+#else
+#include "msg_def/msg/actuator_cmd.hpp"
+#endif // GAZEBO
+#endif // ROS2
 
 struct SActuatorProxyData
 {
@@ -47,10 +48,11 @@ private:
     std::string m_channelName;                                          ///<
     int m_ID;                                                           ///<
     rclcpp::Node::SharedPtr m_node;                                     ///<
-    rclcpp::Publisher<msg_def::msg::ActuatorCmd>::SharedPtr m_pub;      ///<
 
 #ifdef GAZEBO_IS_ENABLED
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr m_pub2;      ///<
+#else
+    rclcpp::Publisher<msg_def::msg::ActuatorCmd>::SharedPtr m_pub;      ///<
 #endif
 
 };

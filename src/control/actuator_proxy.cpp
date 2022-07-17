@@ -30,20 +30,20 @@ CActuatorProxy::CActuatorProxy(std::string name)
     m_pub2 = m_node->create_publisher<geometry_msgs::msg::Twist>("demo/cmd_demo", 10);
 #else
     m_pub = m_node->create_publisher<msg_def::msg::ActuatorCmd>(m_channelName, 10);
-#endif
-#endif
+#endif // GAZEBO
+#endif // ROS2
 }
 
 void CActuatorProxy::write(const SActuatorProxyData& data)
 {
-#if ROS2_IS_ENABLED
+#ifdef ROS2_IS_ENABLED
 #ifdef GAZEBO_IS_ENABLED
     geometry_msgs::msg::Twist msg;
 
     if("Accelerate" == data.command) {
-        msg.linear.x = 1.0;
+        msg.linear.set__x(1.0f);
     } else if("Brakes" == data.command) {
-        msg.linear.x = -1.0;
+        msg.linear.set__x(0.0f);
     } else {
 
     }
@@ -53,8 +53,6 @@ void CActuatorProxy::write(const SActuatorProxyData& data)
     msg_def::msg::ActuatorCmd msg;
     msg.command = data.command;
     m_pub->publish(msg);
-#endif
-#else
-
-#endif
+#endif // GAZEBO
+#endif // ROS2
 }

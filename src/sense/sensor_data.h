@@ -17,7 +17,7 @@ struct SSensorProxyData
     int sensor_ID;
     std::string sensor_name;
     // type?
-    float range_sensor_distance; // type of data?
+    double range_sensor_distance; // type of data?
 };
 
 struct SAllSensorData

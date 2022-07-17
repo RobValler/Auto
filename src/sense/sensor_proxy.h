@@ -13,6 +13,15 @@
 #include <string>
 #include <atomic>
 
+#ifdef ROS2_IS_ENABLED
+#include "rclcpp/node.hpp"
+#ifdef GAZEBO_IS_ENABLED
+#include "sensor_msgs/msg/range.hpp"
+#include "sensor_msgs/msg/point_cloud.hpp"
+#endif // GAZEBO
+#endif // ROS2
+
+
 struct SSensorProxyData;
 
 class CSensorProxy
@@ -34,9 +43,14 @@ private:
 
     std::atomic<bool> m_shutdown_request{false};
     std::thread t_main;
-    std::atomic<float> m_distance{100.0f};
+    std::atomic<double> m_distance{100.0f};
     std::string m_proxyName;
     std::string m_SensorName;
     std::string m_channelName;
     int m_ID;
+
+#ifdef GAZEBO_IS_ENABLED
+    rclcpp::Subscription<sensor_msgs::msg::PointCloud>::SharedPtr m_subPointCloud;      ///<
+    rclcpp::Subscription<sensor_msgs::msg::Range>::SharedPtr m_subRange;                ///<
+#endif
 };

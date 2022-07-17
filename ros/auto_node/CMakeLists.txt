@@ -20,10 +20,11 @@ add_definitions(-DGAZEBO_IS_ENABLED)
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(msg_def REQUIRED)
+#find_package(msg_def REQUIRED)
 find_package(gazebo REQUIRED)
 
 find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 
 #paths
@@ -77,9 +78,10 @@ add_executable(cpp_code ${SOURCES} ${HEADERS} )
 ament_target_dependencies(cpp_code
                             rclcpp
                             std_msgs
-                            msg_def
+#                            msg_def
                             gazebo
-                            geometry_msgs)
+                            geometry_msgs
+                            sensor_msgs)
                         
 install(TARGETS
     cpp_code

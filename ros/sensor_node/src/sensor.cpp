@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
     while (rclcpp::ok())
     {
-        if(count < 0)
+        if(count < 10)
             count = 100;
 
         payload.distance = count--;

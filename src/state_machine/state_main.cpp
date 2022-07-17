@@ -30,6 +30,20 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
     SOccupancyGrid occupancyGrid;
     std::string Decide;
 
+    GET_MODULE(CSenseMain, "sensor")->getData(allSensorData);
+    CLOG(LOGLEV_RUN, "Distance = ", allSensorData.data.at(0).range_sensor_distance );
+
+    if(allSensorData.data.at(0).range_sensor_distance >= 0.3f)
+        Decide = "Accelerate";
+    else
+        Decide = "Brake";
+
+    CLOG(LOGLEV_RUN, "Decide = ", Decide );
+
+    GET_MODULE(CControlMain, "control")->setCommand(Decide);
+
+
+#if 0
     // #### SENSOR CLUSTER (HANDLER) ###
    // std::static_pointer_cast<CSenseMain>(m_factory->getModule("sensor"))->getData(allSensorData);
     GET_MODULE(CSenseMain, "sensor")->getData(allSensorData);
@@ -54,7 +68,7 @@ IStateClassBase::StateReturnCode CStateMain::StateRun()
 
     // ### CONTROL ###
     std::static_pointer_cast<CControlMain>(m_factory->getModule("control"))->setCommand(Decide);
-
+#endif
     return StateCodeRunOK;
 }
 
